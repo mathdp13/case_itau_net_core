@@ -1,46 +1,86 @@
 using CaseItau.Application.DTOs;
 using CaseItau.Application.Validators;
 using FluentValidation.TestHelper;
-using Xunit;
 
-namespace CaseItau.UnitTests
+namespace CaseItau.UnitTests;
+
+public class CreateFundoValidatorTests
 {
-    public class FundoValidatorTests
+    private readonly CreateFundoValidator _validator = new();
+
+    [Fact]
+    public void Should_Pass_When_All_Fields_Are_Valid()
     {
-        private readonly CreateFundoValidator _validator;
+        var dto = new CreateFundoDto("F001", "Fundo Real", "60701190000104", 1);
+        var result = _validator.TestValidate(dto);
+        result.ShouldNotHaveAnyValidationErrors();
+    }
 
-        public FundoValidatorTests()
-        {
-            _validator = new CreateFundoValidator();
-        }
+    [Fact]
+    public void Should_Fail_When_CNPJ_Is_Invalid()
+    {
+        var dto = new CreateFundoDto("F001", "Fundo Teste", "12345678901234", 1);
+        var result = _validator.TestValidate(dto);
+        result.ShouldHaveValidationErrorFor(x => x.Cnpj).WithErrorMessage("CNPJ inválido.");
+    }
 
-        [Fact]
-        public void Should_Have_Error_When_CNPJ_Is_Invalid()
-        {
-            // Arrange 
-            // Ordem: Codigo, Nome, CNPJ, CodigoTipo
-            var request = new CreateFundoDto("F001", "Fundo Teste", "12345678901234", 1);
+    [Fact]
+    public void Should_Fail_When_CNPJ_Has_All_Same_Digits()
+    {
+        var dto = new CreateFundoDto("F001", "Fundo Teste", "00000000000000", 1);
+        var result = _validator.TestValidate(dto);
+        result.ShouldHaveValidationErrorFor(x => x.Cnpj);
+    }
 
-            // Act
-            var result = _validator.TestValidate(request);
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Should_Fail_When_Codigo_Is_Empty(string codigo)
+    {
+        var dto = new CreateFundoDto(codigo, "Fundo Teste", "60701190000104", 1);
+        var result = _validator.TestValidate(dto);
+        result.ShouldHaveValidationErrorFor(x => x.Codigo);
+    }
 
-            // Assert
-            result.ShouldHaveValidationErrorFor(x => x.Cnpj)
-                  .WithErrorMessage("CNPJ inválido.");
-        }
+    [Fact]
+    public void Should_Fail_When_Codigo_Exceeds_MaxLength()
+    {
+        var dto = new CreateFundoDto(new string('X', 21), "Fundo Teste", "60701190000104", 1);
+        var result = _validator.TestValidate(dto);
+        result.ShouldHaveValidationErrorFor(x => x.Codigo);
+    }
 
-        [Fact]
-        public void Should_Not_Have_Error_When_CNPJ_Is_Valid()
-        {
-            // Arrange
-            // Usando um CNPJ válido para garantir que o validador aceita dados corretos
-            var request = new CreateFundoDto("F001", "Fundo Real", "60701190000104", 1);
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Should_Fail_When_Nome_Is_Empty(string nome)
+    {
+        var dto = new CreateFundoDto("F001", nome, "60701190000104", 1);
+        var result = _validator.TestValidate(dto);
+        result.ShouldHaveValidationErrorFor(x => x.Nome);
+    }
 
-            // Act
-            var result = _validator.TestValidate(request);
+    [Fact]
+    public void Should_Fail_When_Nome_Exceeds_MaxLength()
+    {
+        var dto = new CreateFundoDto("F001", new string('A', 201), "60701190000104", 1);
+        var result = _validator.TestValidate(dto);
+        result.ShouldHaveValidationErrorFor(x => x.Nome);
+    }
 
-            // Assert
-            result.ShouldNotHaveAnyValidationErrors();
-        }
+    [Fact]
+    public void Should_Fail_When_CodigoTipo_Is_Zero()
+    {
+        var dto = new CreateFundoDto("F001", "Fundo Teste", "60701190000104", 0);
+        var result = _validator.TestValidate(dto);
+        result.ShouldHaveValidationErrorFor(x => x.CodigoTipo);
+    }
+
+    [Fact]
+    public void Should_Fail_When_CodigoTipo_Is_Negative()
+    {
+        var dto = new CreateFundoDto("F001", "Fundo Teste", "60701190000104", -1);
+        var result = _validator.TestValidate(dto);
+        result.ShouldHaveValidationErrorFor(x => x.CodigoTipo);
     }
 }
