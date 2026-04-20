@@ -1,0 +1,95 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {
+      "CaseItau.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/CaseItau.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CaseItau.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CaseItau.Domain/1.0.0": {
+      "type": "project",
+      "path": "../CaseItau.Domain/CaseItau.Domain.csproj",
+      "msbuildProject": "../CaseItau.Domain/CaseItau.Domain.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0": [
+      "CaseItau.Domain >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Matheus\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\Matheus\\case_itau_net_core\\CaseItau.Application\\CaseItau.Application.csproj",
+      "projectName": "CaseItau.Application",
+      "projectPath": "C:\\Users\\Matheus\\case_itau_net_core\\CaseItau.Application\\CaseItau.Application.csproj",
+      "packagesPath": "C:\\Users\\Matheus\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Matheus\\case_itau_net_core\\CaseItau.Application\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Matheus\\AppData\\Roaming\\NuGet\\NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {
+            "C:\\Users\\Matheus\\case_itau_net_core\\CaseItau.Domain\\CaseItau.Domain.csproj": {
+              "projectPath": "C:\\Users\\Matheus\\case_itau_net_core\\CaseItau.Domain\\CaseItau.Domain.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "10.0.100"
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

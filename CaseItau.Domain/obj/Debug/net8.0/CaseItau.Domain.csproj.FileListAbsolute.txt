@@ -1,0 +1,12 @@
+C:\Users\Matheus\case_itau_net_core\CaseItau.Domain\bin\Debug\net8.0\CaseItau.Domain.deps.json
+C:\Users\Matheus\case_itau_net_core\CaseItau.Domain\bin\Debug\net8.0\CaseItau.Domain.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.Domain\bin\Debug\net8.0\CaseItau.Domain.pdb
+C:\Users\Matheus\case_itau_net_core\CaseItau.Domain\obj\Debug\net8.0\CaseItau.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Matheus\case_itau_net_core\CaseItau.Domain\obj\Debug\net8.0\CaseItau.Domain.AssemblyInfoInputs.cache
+C:\Users\Matheus\case_itau_net_core\CaseItau.Domain\obj\Debug\net8.0\CaseItau.Domain.AssemblyInfo.cs
+C:\Users\Matheus\case_itau_net_core\CaseItau.Domain\obj\Debug\net8.0\CaseItau.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Matheus\case_itau_net_core\CaseItau.Domain\obj\Debug\net8.0\CaseItau.Domain.sourcelink.json
+C:\Users\Matheus\case_itau_net_core\CaseItau.Domain\obj\Debug\net8.0\CaseItau.Domain.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.Domain\obj\Debug\net8.0\refint\CaseItau.Domain.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.Domain\obj\Debug\net8.0\CaseItau.Domain.pdb
+C:\Users\Matheus\case_itau_net_core\CaseItau.Domain\obj\Debug\net8.0\ref\CaseItau.Domain.dll
