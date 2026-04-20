@@ -15,7 +15,7 @@ logs/
 ## Docker
 .dockerignore
 
-## Node / Angular (frontend - passos futuros)
+## Node / Angular
 node_modules/
 dist/
 .angular/

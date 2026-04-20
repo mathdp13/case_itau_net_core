@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CaseItau.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17d2ec9c6b8832f1d41ff4ea6b03cc7b850c2094")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+439f18bf9e32218d81ccc8ab2abc44ea825bf9b2")]
 [assembly: System.Reflection.AssemblyProductAttribute("CaseItau.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CaseItau.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

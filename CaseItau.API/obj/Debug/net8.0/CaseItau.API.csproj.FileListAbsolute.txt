@@ -69,3 +69,15 @@ C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\runtimes\win-a
 C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\FluentValidation.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.API\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll

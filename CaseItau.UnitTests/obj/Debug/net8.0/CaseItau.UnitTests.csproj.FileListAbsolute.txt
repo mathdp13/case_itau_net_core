@@ -103,3 +103,15 @@ C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\obj\Debug\net8.0\refint\C
 C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\obj\Debug\net8.0\CaseItau.UnitTests.pdb
 C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\obj\Debug\net8.0\CaseItau.UnitTests.genruntimeconfig.cache
 C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\obj\Debug\net8.0\ref\CaseItau.UnitTests.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\FluentValidation.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
