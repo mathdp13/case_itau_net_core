@@ -1,0 +1,26 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.db
+*.db-shm
+*.db-wal
+
+## Logs
+logs/
+*.log
+
+## Docker
+.dockerignore
+
+## Node / Angular (frontend - passos futuros)
+node_modules/
+dist/
+.angular/
+
+## Environment
+.env
+.env.*
+!.env.example
