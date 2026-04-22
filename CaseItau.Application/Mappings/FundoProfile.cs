@@ -9,10 +9,18 @@ public class FundoProfile : Profile
     public FundoProfile()
     {
         CreateMap<Fundo, FundoDto>()
-            .ForMember(d => d.NomeTipo, o => o.MapFrom(s => s.TipoFundo.Nome));
+            .ConstructUsing(s => new FundoDto(
+                s.Codigo,
+                s.Nome,
+                s.Cnpj,
+                s.CodigoTipo,
+                s.TipoFundo.Nome,
+                s.Patrimonio));
 
-        CreateMap<CreateFundoDto, Fundo>();
+        CreateMap<CreateFundoDto, Fundo>()
+            .ForMember(d => d.TipoFundo, o => o.Ignore());
 
-        CreateMap<TipoFundo, TipoFundoDto>();
+        CreateMap<TipoFundo, TipoFundoDto>()
+            .ConstructUsing(s => new TipoFundoDto(s.Codigo, s.Nome));
     }
 }

@@ -21,7 +21,7 @@ public class TipoFundoService : ITipoFundoService
     public async Task<IEnumerable<TipoFundoDto>> GetAllAsync()
     {
         var tipos = await _uow.TiposFundo.GetAllAsync();
-        return _mapper.Map<IEnumerable<TipoFundoDto>>(tipos);
+        return _mapper.Map<IEnumerable<TipoFundo>, IEnumerable<TipoFundoDto>>(tipos);
     }
 
     public async Task<TipoFundoDto> GetByCodigoAsync(int codigo)
@@ -29,6 +29,6 @@ public class TipoFundoService : ITipoFundoService
         var tipo = await _uow.TiposFundo.GetByCodigoAsync(codigo)
             ?? throw new NotFoundException(nameof(TipoFundo), codigo);
 
-        return _mapper.Map<TipoFundoDto>(tipo);
+        return _mapper.Map<TipoFundo, TipoFundoDto>(tipo);
     }
 }

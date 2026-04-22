@@ -21,7 +21,7 @@ public class FundoService : IFundoService
     public async Task<IEnumerable<FundoDto>> GetAllAsync()
     {
         var fundos = await _uow.Fundos.GetAllAsync();
-        return _mapper.Map<IEnumerable<FundoDto>>(fundos);
+        return _mapper.Map<IEnumerable<Fundo>, IEnumerable<FundoDto>>(fundos);
     }
 
     public async Task<FundoDto> GetByCodigoAsync(string codigo)
@@ -29,20 +29,21 @@ public class FundoService : IFundoService
         var fundo = await _uow.Fundos.GetByCodigoAsync(codigo)
             ?? throw new NotFoundException(nameof(Fundo), codigo);
 
-        return _mapper.Map<FundoDto>(fundo);
+        return _mapper.Map<Fundo, FundoDto>(fundo);
     }
 
     public async Task<FundoDto> CreateAsync(CreateFundoDto dto)
     {
-        var tipoExiste = await _uow.TiposFundo.GetByCodigoAsync(dto.CodigoTipo);
-        if (tipoExiste is null)
-            throw new NotFoundException(nameof(TipoFundo), dto.CodigoTipo);
+        var tipo = await _uow.TiposFundo.GetByCodigoAsync(dto.CodigoTipo)
+            ?? throw new NotFoundException(nameof(TipoFundo), dto.CodigoTipo);
 
         var fundo = _mapper.Map<Fundo>(dto);
+        fundo.TipoFundo = tipo;
+
         await _uow.Fundos.AddAsync(fundo);
         await _uow.CommitAsync();
 
-        return await GetByCodigoAsync(fundo.Codigo);
+        return _mapper.Map<Fundo, FundoDto>(fundo);
     }
 
     public async Task UpdateAsync(string codigo, UpdateFundoDto dto)
