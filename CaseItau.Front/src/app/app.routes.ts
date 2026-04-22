@@ -22,5 +22,5 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () => import('./features/fundos/fundos-list.component').then(m => m.FundosListComponent)
   },
-  { path: '**', redirectTo: 'fundos' }
+  { path: '**', redirectTo: '/fundos' }
 ];

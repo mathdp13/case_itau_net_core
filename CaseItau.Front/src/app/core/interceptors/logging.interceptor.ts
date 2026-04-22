@@ -1,15 +1,16 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 export const loggingInterceptor: HttpInterceptorFn = (req, next) => {
   const start = Date.now();
-  console.info(`[HTTP] ${req.method} ${req.url}`);
 
   return next(req).pipe(
     tap(event => {
-      const duration = Date.now() - start;
-      console.info(`[HTTP] ${req.method} ${req.url} — ${duration}ms`);
+      if (event instanceof HttpResponse) {
+        const duration = Date.now() - start;
+        console.info(`[HTTP] ${req.method} ${req.url} ${event.status} — ${duration}ms`);
+      }
     }),
     catchError(err => {
       const duration = Date.now() - start;

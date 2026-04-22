@@ -6,6 +6,7 @@ services:
     container_name: caseItau_seq
     environment:
       - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_ADMINPASSWORD=admin123
     ports:
       - "5341:80"
       - "5342:5341"
@@ -32,7 +33,7 @@ services:
 
   front:
     build:
-      context: ./case-itau-front
+      context: ./CaseItau.Front
       dockerfile: Dockerfile
     container_name: caseItau_front
     ports:

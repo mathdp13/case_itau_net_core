@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,20 +25,23 @@ export class FundoFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private fundoService: FundoService
+    private fundoService: FundoService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.fundoService.getTipos().subscribe({ next: t => this.tipos = t, error: () => {} });
+    this.fundoService.getTipos().subscribe({
+      next: t => { this.tipos = t; this.cdr.detectChanges(); },
+      error: () => {}
+    });
 
     const codigoParam = this.route.snapshot.paramMap.get('codigo');
     if (codigoParam) {
       this.isEdit = true;
       this.codigo = codigoParam;
-      this.fundoService.getByCodigo(codigoParam).subscribe(f => {
-        this.nome = f.nome;
-        this.cnpj = f.cnpj;
-        this.codigoTipo = f.codigoTipo;
+      this.fundoService.getByCodigo(codigoParam).subscribe({
+        next: f => { this.nome = f.nome; this.cnpj = f.cnpj; this.codigoTipo = f.codigoTipo; this.cdr.detectChanges(); },
+        error: () => {}
       });
     }
   }
@@ -50,12 +53,12 @@ export class FundoFormComponent implements OnInit {
     if (this.isEdit) {
       this.fundoService.update(this.codigo, { nome: this.nome, cnpj: this.cnpj, codigoTipo: this.codigoTipo }).subscribe({
         next: () => this.router.navigate(['/fundos']),
-        error: (err: { error?: { error?: string } }) => { this.error = err?.error?.error ?? 'Erro ao salvar fundo.'; this.loading = false; }
+        error: (err: { error?: { error?: string } }) => { this.error = err?.error?.error ?? 'Erro ao salvar fundo.'; this.loading = false; this.cdr.detectChanges(); }
       });
     } else {
       this.fundoService.create({ codigo: this.codigo, nome: this.nome, cnpj: this.cnpj, codigoTipo: this.codigoTipo }).subscribe({
         next: () => this.router.navigate(['/fundos']),
-        error: (err: { error?: { error?: string } }) => { this.error = err?.error?.error ?? 'Erro ao salvar fundo.'; this.loading = false; }
+        error: (err: { error?: { error?: string } }) => { this.error = err?.error?.error ?? 'Erro ao salvar fundo.'; this.loading = false; this.cdr.detectChanges(); }
       });
     }
   }
