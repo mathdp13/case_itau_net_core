@@ -30,6 +30,17 @@ services:
       - seq
     restart: unless-stopped
 
+  front:
+    build:
+      context: ./case-itau-front
+      dockerfile: Dockerfile
+    container_name: caseItau_front
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
 volumes:
   sqlite_data:
   seq_data:

@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="card">
+    <h2>{{ isEdit ? 'Editar Fundo' : 'Novo Fundo' }}</h2>
+
+    <form (ngSubmit)="salvar()">
+      @if (!isEdit) {
+        <div class="form-group">
+          <label>Código *</label>
+          <input type="text" [(ngModel)]="codigo" name="codigo" required maxlength="20" />
+        </div>
+      }
+
+      <div class="form-group">
+        <label>Nome *</label>
+        <input type="text" [(ngModel)]="nome" name="nome" required maxlength="200" />
+      </div>
+
+      <div class="form-group">
+        <label>CNPJ *</label>
+        <input type="text" [(ngModel)]="cnpj" name="cnpj" required maxlength="18" placeholder="00.000.000/0000-00" />
+      </div>
+
+      <div class="form-group">
+        <label>Tipo *</label>
+        <select [(ngModel)]="codigoTipo" name="codigoTipo" required>
+          <option [value]="0" disabled>Selecione...</option>
+          @for (tipo of tipos; track tipo.codigo) {
+            <option [value]="tipo.codigo">{{ tipo.nome }}</option>
+          }
+        </select>
+      </div>
+
+      @if (error) {
+        <p class="error">{{ error }}</p>
+      }
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary" [disabled]="loading">
+          {{ loading ? 'Salvando...' : 'Salvar' }}
+        </button>
+        <button type="button" class="btn-outline" (click)="cancelar()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

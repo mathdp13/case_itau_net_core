@@ -1,0 +1,26 @@
+<div class="login-container">
+  <div class="login-card">
+    <h1>Case Itaú</h1>
+    <h2>Fundos de Investimento</h2>
+
+    <form (ngSubmit)="login()">
+      <div class="form-group">
+        <label>Usuário</label>
+        <input type="text" [(ngModel)]="username" name="username" required />
+      </div>
+
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" [(ngModel)]="password" name="password" required />
+      </div>
+
+      @if (error) {
+        <p class="error">{{ error }}</p>
+      }
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Entrando...' : 'Entrar' }}
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="container">
+  <header>
+    <div>
+      <h1>Fundos de Investimento</h1>
+      <span class="subtitle">Case Itaú</span>
+    </div>
+    <div class="header-actions">
+      <button class="btn-primary" (click)="novo()">+ Novo Fundo</button>
+      <button class="btn-outline" (click)="logout()">Sair</button>
+    </div>
+  </header>
+
+  @if (loading) {
+    <p class="info">Carregando...</p>
+  } @else if (error) {
+    <p class="error">{{ error }}</p>
+  } @else if (fundos.length === 0) {
+    <p class="info">Nenhum fundo cadastrado.</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nome</th>
+          <th>CNPJ</th>
+          <th>Tipo</th>
+          <th>Patrimônio</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (fundo of fundos; track fundo.codigo) {
+          <tr>
+            <td>{{ fundo.codigo }}</td>
+            <td>{{ fundo.nome }}</td>
+            <td>{{ fundo.cnpj }}</td>
+            <td>{{ fundo.nomeTipo }}</td>
+            <td>{{ fundo.patrimonio != null ? (fundo.patrimonio | number:'1.2-2') : '—' }}</td>
+            <td class="actions">
+              <button class="btn-sm" (click)="editar(fundo.codigo)">Editar</button>
+              <button class="btn-sm btn-green" (click)="abrirMovimentar(fundo.codigo)">Patrimônio</button>
+              <button class="btn-sm btn-danger" (click)="abrirExcluir(fundo.codigo)">Excluir</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  @if (confirmandoExclusao) {
+    <div class="modal-overlay">
+      <div class="modal">
+        <h3>Confirmar Exclusão</h3>
+        <p>Deseja excluir o fundo <strong>{{ confirmandoExclusao }}</strong>?</p>
+        @if (erroModal) { <p class="error">{{ erroModal }}</p> }
+        <div class="modal-actions">
+          <button class="btn-danger-full" (click)="confirmarExcluir()">Excluir</button>
+          <button class="btn-outline" (click)="confirmandoExclusao = null">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (movimentandoCodigo) {
+    <div class="modal-overlay">
+      <div class="modal">
+        <h3>Movimentar Patrimônio — {{ movimentandoCodigo }}</h3>
+        <div class="form-group">
+          <label>Valor (positivo para entrada, negativo para saída)</label>
+          <input type="number" [(ngModel)]="valorPatrimonio" />
+        </div>
+        @if (erroModal) { <p class="error">{{ erroModal }}</p> }
+        <div class="modal-actions">
+          <button class="btn-primary" (click)="confirmarMovimentar()">Confirmar</button>
+          <button class="btn-outline" (click)="movimentandoCodigo = null">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
