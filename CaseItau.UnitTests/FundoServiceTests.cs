@@ -29,7 +29,7 @@ public class FundoServiceTests
         var fundos = new List<Fundo> { new() { Codigo = "F001", Nome = "Fundo A", TipoFundo = new TipoFundo { Nome = "Renda Fixa" } } };
         var dtos = new List<FundoDto> { new("F001", "Fundo A", "00000000000000", 1, "Renda Fixa", null) };
         _fundoRepoMock.Setup(r => r.GetAllAsync()).ReturnsAsync(fundos);
-        _mapperMock.Setup(m => m.Map<IEnumerable<FundoDto>>(fundos)).Returns(dtos);
+        _mapperMock.Setup(m => m.Map<IEnumerable<Fundo>, IEnumerable<FundoDto>>(fundos)).Returns(dtos);
 
         var result = await _service.GetAllAsync();
 
@@ -43,7 +43,7 @@ public class FundoServiceTests
         var fundo = new Fundo { Codigo = "F001", Nome = "Fundo A", TipoFundo = new TipoFundo { Nome = "Renda Fixa" } };
         var dto = new FundoDto("F001", "Fundo A", "60701190000104", 1, "Renda Fixa", null);
         _fundoRepoMock.Setup(r => r.GetByCodigoAsync("F001")).ReturnsAsync(fundo);
-        _mapperMock.Setup(m => m.Map<FundoDto>(fundo)).Returns(dto);
+        _mapperMock.Setup(m => m.Map<Fundo, FundoDto>(fundo)).Returns(dto);
 
         var result = await _service.GetByCodigoAsync("F001");
 
@@ -78,8 +78,7 @@ public class FundoServiceTests
         _tipoRepoMock.Setup(r => r.GetByCodigoAsync(1)).ReturnsAsync(tipo);
         _mapperMock.Setup(m => m.Map<Fundo>(dto)).Returns(fundo);
         _uowMock.Setup(u => u.CommitAsync()).ReturnsAsync(1);
-        _fundoRepoMock.Setup(r => r.GetByCodigoAsync("F001")).ReturnsAsync(fundo);
-        _mapperMock.Setup(m => m.Map<FundoDto>(fundo)).Returns(fundoDto);
+        _mapperMock.Setup(m => m.Map<Fundo, FundoDto>(It.IsAny<Fundo>())).Returns(fundoDto);
 
         var result = await _service.CreateAsync(dto);
 
