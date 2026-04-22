@@ -6,7 +6,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Serilog;
+using Serilog.Sinks.OpenTelemetry;
 using System.Text;
 
 Log.Logger = new LoggerConfiguration()
@@ -17,9 +21,34 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
+    var seqEndpoint = builder.Configuration["Seq:Endpoint"] ?? "http://seq:5341";
+    const string serviceName = "CaseItau.API";
+
     builder.Host.UseSerilog((ctx, services, config) =>
         config.ReadFrom.Configuration(ctx.Configuration)
-              .ReadFrom.Services(services));
+              .ReadFrom.Services(services)
+              .WriteTo.OpenTelemetry(opt =>
+              {
+                  opt.Endpoint = $"{seqEndpoint}/ingest/otlp/v1/logs";
+                  opt.Protocol = OtlpProtocol.HttpProtobuf;
+                  opt.ResourceAttributes = new Dictionary<string, object>
+                  {
+                      ["service.name"] = serviceName
+                  };
+              }));
+
+    builder.Services.AddOpenTelemetry()
+        .ConfigureResource(r => r.AddService(serviceName))
+        .WithTracing(tracing => tracing
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddEntityFrameworkCoreInstrumentation()
+            .AddOtlpExporter(opt => opt.Endpoint = new Uri($"{seqEndpoint}/ingest/otlp/v1/traces")))
+        .WithMetrics(metrics => metrics
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddRuntimeInstrumentation()
+            .AddOtlpExporter(opt => opt.Endpoint = new Uri($"{seqEndpoint}/ingest/otlp/v1/metrics")));
 
     builder.Services.AddApplication();
     builder.Services.AddInfrastructure(builder.Configuration);
@@ -41,6 +70,8 @@ try
             };
         });
     builder.Services.AddAuthorization();
+
+    builder.Services.AddHealthChecks();
 
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
@@ -100,6 +131,7 @@ try
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
+    app.MapHealthChecks("/health");
 
     await app.RunAsync();
 }
