@@ -3,5 +3,11 @@
     "target": "http://localhost:5000",
     "secure": false,
     "changeOrigin": true
+  },
+  "/otlp": {
+    "target": "http://localhost:5342",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": { "^/otlp": "/ingest/otlp" }
   }
 }
