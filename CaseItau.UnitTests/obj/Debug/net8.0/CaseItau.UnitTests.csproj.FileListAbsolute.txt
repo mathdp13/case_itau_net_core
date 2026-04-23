@@ -115,3 +115,8 @@ C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\obj\Debug\net8.0\refint\C
 C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\obj\Debug\net8.0\CaseItau.UnitTests.pdb
 C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\obj\Debug\net8.0\CaseItau.UnitTests.genruntimeconfig.cache
 C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\obj\Debug\net8.0\ref\CaseItau.UnitTests.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\Castle.Core.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\Moq.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\System.Diagnostics.EventLog.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll
+C:\Users\Matheus\case_itau_net_core\CaseItau.UnitTests\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.dll
