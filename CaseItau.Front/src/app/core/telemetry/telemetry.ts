@@ -1,8 +1,5 @@
 import { trace } from '@opentelemetry/api';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
-import { registerInstrumentations } from '@opentelemetry/instrumentation';
-import { FetchInstrumentation } from '@opentelemetry/instrumentation-fetch';
-import { XMLHttpRequestInstrumentation } from '@opentelemetry/instrumentation-xml-http-request';
 import { resourceFromAttributes } from '@opentelemetry/resources';
 import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
@@ -23,19 +20,6 @@ export function initTelemetry(): void {
   });
 
   provider.register();
-
-  registerInstrumentations({
-    instrumentations: [
-      new XMLHttpRequestInstrumentation({
-        propagateTraceHeaderCorsUrls: [/\/api/],
-        ignoreUrls: [/\/otlp/],
-      }),
-      new FetchInstrumentation({
-        propagateTraceHeaderCorsUrls: [/\/api/],
-        ignoreUrls: [/\/otlp/],
-      }),
-    ],
-  });
 }
 
 export const getTracer = () => trace.getTracer('case-itau-front');

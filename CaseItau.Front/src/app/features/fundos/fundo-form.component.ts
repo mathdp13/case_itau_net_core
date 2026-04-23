@@ -20,6 +20,7 @@ export class FundoFormComponent implements OnInit {
   codigoTipo = 0;
   tipos: TipoFundo[] = [];
   error = '';
+  fieldErrors: Record<string, string> = {};
   loading = false;
 
   constructor(
@@ -30,17 +31,14 @@ export class FundoFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fundoService.getTipos().subscribe({
-      next: t => { this.tipos = t; this.cdr.detectChanges(); },
-      error: () => {}
-    });
+    this.fundoService.getTipos().subscribe({ next: t => { this.tipos = t; }, error: () => {} });
 
     const codigoParam = this.route.snapshot.paramMap.get('codigo');
     if (codigoParam) {
       this.isEdit = true;
       this.codigo = codigoParam;
       this.fundoService.getByCodigo(codigoParam).subscribe({
-        next: f => { this.nome = f.nome; this.cnpj = f.cnpj; this.codigoTipo = f.codigoTipo; this.cdr.detectChanges(); },
+        next: f => { this.nome = f.nome; this.cnpj = f.cnpj; this.codigoTipo = f.codigoTipo; },
         error: () => {}
       });
     }
@@ -48,19 +46,28 @@ export class FundoFormComponent implements OnInit {
 
   salvar(): void {
     this.error = '';
+    this.fieldErrors = {};
     this.loading = true;
 
-    if (this.isEdit) {
-      this.fundoService.update(this.codigo, { nome: this.nome, cnpj: this.cnpj, codigoTipo: this.codigoTipo }).subscribe({
-        next: () => this.router.navigate(['/fundos']),
-        error: (err: { error?: { error?: string } }) => { this.error = err?.error?.error ?? 'Erro ao salvar fundo.'; this.loading = false; this.cdr.detectChanges(); }
-      });
-    } else {
-      this.fundoService.create({ codigo: this.codigo, nome: this.nome, cnpj: this.cnpj, codigoTipo: this.codigoTipo }).subscribe({
-        next: () => this.router.navigate(['/fundos']),
-        error: (err: { error?: { error?: string } }) => { this.error = err?.error?.error ?? 'Erro ao salvar fundo.'; this.loading = false; this.cdr.detectChanges(); }
-      });
-    }
+    const obs = (this.isEdit
+      ? this.fundoService.update(this.codigo, { nome: this.nome, cnpj: this.cnpj, codigoTipo: this.codigoTipo })
+      : this.fundoService.create({ codigo: this.codigo, nome: this.nome, cnpj: this.cnpj, codigoTipo: this.codigoTipo })) as any;
+
+    obs.subscribe({
+      next: () => this.router.navigate(['/fundos']),
+      error: (err: any) => {
+        this.loading = false;
+        if (err?.error?.errors) {
+          const raw = err.error.errors as Record<string, string[]>;
+          Object.entries(raw).forEach(([field, msgs]) => {
+            this.fieldErrors[field.toLowerCase()] = msgs[0];
+          });
+        } else {
+          this.error = err?.error?.error ?? 'Erro ao salvar fundo.';
+        }
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   cancelar(): void {

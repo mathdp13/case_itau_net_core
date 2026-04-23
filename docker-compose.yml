@@ -6,7 +6,7 @@ services:
     container_name: caseItau_seq
     environment:
       - ACCEPT_EULA=Y
-      - SEQ_FIRSTRUN_ADMINPASSWORD=admin123
+      - SEQ_FIRSTRUN_ADMINPASSWORD=${SEQ_ADMIN_PASSWORD}
     ports:
       - "5341:80"
       - "5342:5341"
@@ -31,6 +31,16 @@ services:
       - seq
     restart: unless-stopped
 
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: caseItau_otel_collector
+    command: ["--config=/etc/otelcol/config.yaml"]
+    volumes:
+      - ./otel-collector.yaml:/etc/otelcol/config.yaml
+    depends_on:
+      - seq
+    restart: unless-stopped
+
   front:
     build:
       context: ./CaseItau.Front
@@ -40,6 +50,7 @@ services:
       - "4200:80"
     depends_on:
       - api
+      - otel-collector
     restart: unless-stopped
 
 volumes:

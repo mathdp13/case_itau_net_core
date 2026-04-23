@@ -7,17 +7,20 @@
         <div class="form-group">
           <label>Código *</label>
           <input type="text" [(ngModel)]="codigo" name="codigo" required maxlength="20" />
+          @if (fieldErrors['codigo']) { <p class="field-error">{{ fieldErrors['codigo'] }}</p> }
         </div>
       }
 
       <div class="form-group">
         <label>Nome *</label>
         <input type="text" [(ngModel)]="nome" name="nome" required maxlength="200" />
+        @if (fieldErrors['nome']) { <p class="field-error">{{ fieldErrors['nome'] }}</p> }
       </div>
 
       <div class="form-group">
         <label>CNPJ *</label>
         <input type="text" [(ngModel)]="cnpj" name="cnpj" required maxlength="18" placeholder="00.000.000/0000-00" />
+        @if (fieldErrors['cnpj']) { <p class="field-error">{{ fieldErrors['cnpj'] }}</p> }
       </div>
 
       <div class="form-group">
@@ -28,6 +31,7 @@
             <option [value]="tipo.codigo">{{ tipo.nome }}</option>
           }
         </select>
+        @if (fieldErrors['codigotipo']) { <p class="field-error">{{ fieldErrors['codigotipo'] }}</p> }
       </div>
 
       @if (error) {

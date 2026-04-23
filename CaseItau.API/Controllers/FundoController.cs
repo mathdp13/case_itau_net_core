@@ -39,7 +39,9 @@ public class FundoController : ControllerBase
     {
         var validation = await _createValidator.ValidateAsync(dto);
         if (!validation.IsValid)
-            return BadRequest(validation.Errors.Select(e => e.ErrorMessage));
+            return BadRequest(new { errors = validation.Errors
+                .GroupBy(e => e.PropertyName)
+                .ToDictionary(g => g.Key, g => g.Select(e => e.ErrorMessage).ToArray()) });
 
         var created = await _service.CreateAsync(dto);
         return CreatedAtAction(nameof(GetByCodigo), new { codigo = created.Codigo }, created);
@@ -50,7 +52,9 @@ public class FundoController : ControllerBase
     {
         var validation = await _updateValidator.ValidateAsync(dto);
         if (!validation.IsValid)
-            return BadRequest(validation.Errors.Select(e => e.ErrorMessage));
+            return BadRequest(new { errors = validation.Errors
+                .GroupBy(e => e.PropertyName)
+                .ToDictionary(g => g.Key, g => g.Select(e => e.ErrorMessage).ToArray()) });
 
         await _service.UpdateAsync(codigo, dto);
         return NoContent();

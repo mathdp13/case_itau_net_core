@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -27,7 +27,8 @@ export class FundosListComponent implements OnInit {
   constructor(
     private fundoService: FundoService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -37,8 +38,8 @@ export class FundosListComponent implements OnInit {
   carregar(): void {
     this.loading = true;
     this.fundoService.getAll().subscribe({
-      next: data => { this.fundos = data; this.loading = false; },
-      error: () => { this.error = 'Erro ao carregar fundos.'; this.loading = false; }
+      next: data => { this.fundos = data; this.loading = false; this.cdr.detectChanges(); },
+      error: () => { this.error = 'Erro ao carregar fundos.'; this.loading = false; this.cdr.detectChanges(); }
     });
   }
 
