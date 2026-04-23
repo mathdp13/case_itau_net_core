@@ -133,7 +133,7 @@ A migration é aplicada automaticamente na inicialização da API.
 
 ### Credenciais de acesso (frontend / API)
 
-As credenciais são configuradas em `appsettings.json` na seção `Auth`. Por padrão, utilize o usuário e senha definidos no arquivo de configuração para gerar o token JWT via `/api/auth/login`.
+As credenciais são definidas no arquivo `.env` (variáveis `AUTH_USERNAME` e `AUTH_PASSWORD`) e injetadas no container via Docker Compose. Utilize essas credenciais para autenticar via `/api/auth/login` ou pela tela de login do frontend.
 
 ---
 
@@ -192,9 +192,13 @@ Os testes unitários cobrem:
 
 As configurações são lidas de `appsettings.json` e sobrepostas por variáveis de ambiente (padrão .NET). Ao rodar via Docker Compose, as variáveis já estão definidas no `docker-compose.yml`.
 
-| Variável de Ambiente                   | Descrição                             |
-|----------------------------------------|---------------------------------------|
-| `ConnectionStrings__DefaultConnection` | Connection string do SQLite           |
-| `Seq__Endpoint`                        | Endpoint do Seq para envio de logs    |
-| `Auth__SecretKey`                      | Chave secreta para assinatura do JWT  |
-| `SEQ_ADMIN_PASSWORD`                   | Senha do admin do Seq (via `.env`)    |
+| Variável de Ambiente                   | Descrição                                        |
+|----------------------------------------|--------------------------------------------------|
+| `ConnectionStrings__DefaultConnection` | Connection string do SQLite                      |
+| `Seq__Endpoint`                        | Endpoint do Seq para envio de logs               |
+| `JwtSettings__Secret`                  | Chave secreta para assinatura do JWT             |
+| `Auth__Username`                       | Usuário para autenticação na API                 |
+| `Auth__Password`                       | Senha para autenticação na API                   |
+| `SEQ_ADMIN_PASSWORD`                   | Senha do admin do Seq                            |
+
+Todas as variáveis sensíveis são definidas no arquivo `.env` (ver `.env.example`).
